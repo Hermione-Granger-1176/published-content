@@ -22,7 +22,7 @@ published-content/
 │   │   └── Files.zip        # Session files
 │   └── ...
 ├── scripts/
-│   └── generate_index.py    # Scans folders, generates js/data.js
+│   └── generate_index.py    # Scans folders, generates js/data.js + README auto sections
 ├── css/
 │   └── style.css            # Website styles (dark/light theme)
 ├── js/
@@ -30,7 +30,7 @@ published-content/
 │   └── data.js              # Auto-generated content index (DO NOT edit manually)
 ├── .github/
 │   └── workflows/
-│       └── update.yml       # GitHub Action that auto-generates data.js
+│       └── update.yml       # GitHub Action that auto-generates data + README stats
 ├── index.html               # Main website entry point
 ├── README.md                # Profile page
 ├── MAINTENANCE.md           # This file
@@ -87,7 +87,7 @@ You don't need to touch any code. Just follow this process:
     git push
     ```
 
-    The GitHub Action will auto-update `js/data.js` and the website.
+    The GitHub Action will auto-update `js/data.js`, README stats, and the website.
 
 ## How to Add a New YouTube Session
 
@@ -144,7 +144,7 @@ Triggered on every push to `main` that changes files in:
 What it does:
 1. Checks out the repo
 2. Runs `python scripts/generate_index.py`
-3. Commits the updated `js/data.js` if it changed
+3. Commits updated `js/data.js` and `README.md` if they changed
 4. Pushes the commit
 
 ### The Generate Script (`scripts/generate_index.py`)
@@ -153,6 +153,7 @@ What it does:
 - Reads `name.txt`, `url.txt`, `tags.txt` from each
 - Checks for `Files.zip` existence
 - Outputs `js/data.js` with a `window.CONTENT_DATA` array
+- Updates README auto-markers for platform totals, total badge/count, and topic badges
 - Skips folders without `name.txt`
 - Skips `url.txt` values that start with `TODO`
 

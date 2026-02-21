@@ -143,6 +143,9 @@ document.addEventListener('DOMContentLoaded', () => {
     syncUIToState();
     renderContent();
 
+    // Reveal content — all DOM mutations are done, show in one clean paint
+    document.body.classList.remove('js-loading');
+
     function syncUIToState() {
         // Search — preserve original casing if the lowercased values match
         if (searchInput.value.toLowerCase() !== currentFilter) {

@@ -59,21 +59,22 @@ This repository is a structured portfolio of all educational content I publish a
   <tr>
     <td align="center">
       <img src="https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn"><br>
-      <strong>29</strong> Posts
+      <strong><!-- AUTO:LINKEDIN_COUNT -->29<!-- /AUTO:LINKEDIN_COUNT --></strong> Posts
     </td>
     <td align="center">
       <img src="https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white" alt="YouTube"><br>
-      <strong>12</strong> Sessions
+      <strong><!-- AUTO:YOUTUBE_COUNT -->12<!-- /AUTO:YOUTUBE_COUNT --></strong> Sessions
     </td>
     <td align="center">
-      <img src="https://img.shields.io/badge/Total-41-FFD100?style=for-the-badge" alt="Total"><br>
-      <strong>41</strong> Items
+      <img src="https://img.shields.io/badge/Total-<!-- AUTO:TOTAL_BADGE_COUNT -->41<!-- /AUTO:TOTAL_BADGE_COUNT -->-FFD100?style=for-the-badge" alt="Total"><br>
+      <strong><!-- AUTO:TOTAL_COUNT -->41<!-- /AUTO:TOTAL_COUNT --></strong> Items
     </td>
   </tr>
 </table>
 
 ### Topics Covered
 
+<!-- AUTO:TOPIC_BADGES_START -->
 <img src="https://img.shields.io/badge/Excel-217346?style=flat-square&logo=microsoftexcel&logoColor=white" alt="Excel">&nbsp;
 <img src="https://img.shields.io/badge/Power_Query-F2C811?style=flat-square&logoColor=black" alt="Power Query">&nbsp;
 <img src="https://img.shields.io/badge/M_Code-8E44AD?style=flat-square&logoColor=white" alt="M Code">&nbsp;
@@ -82,6 +83,7 @@ This repository is a structured portfolio of all educational content I publish a
 <img src="https://img.shields.io/badge/Charts-E67E22?style=flat-square&logoColor=white" alt="Charts">&nbsp;
 <img src="https://img.shields.io/badge/Data_Analysis-2E86C1?style=flat-square&logoColor=white" alt="Data Analysis">&nbsp;
 <img src="https://img.shields.io/badge/Data_Cleaning-1ABC9C?style=flat-square&logoColor=white" alt="Data Cleaning">
+<!-- AUTO:TOPIC_BADGES_END -->
 
 </div>
 
