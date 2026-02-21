@@ -2,11 +2,16 @@ document.addEventListener('DOMContentLoaded', () => {
     // DOM Elements
     const contentGrid = document.getElementById('content-grid');
     const searchInput = document.getElementById('search-input');
+    const searchClear = document.getElementById('search-clear');
     const sortButtons = document.querySelectorAll('.btn-sort');
     const themeToggle = document.getElementById('theme-toggle');
     const noResults = document.getElementById('no-results');
+    const noResultsReset = document.getElementById('no-results-reset');
     const resultsCount = document.getElementById('results-count');
     const paginationContainer = document.getElementById('pagination');
+    const resetFiltersBtn = document.getElementById('reset-filters');
+    const activeFiltersBar = document.getElementById('active-filters');
+    const scrollTopBtn = document.getElementById('scroll-top');
     const htmlElement = document.documentElement;
 
     // Filter Elements
@@ -30,8 +35,13 @@ document.addEventListener('DOMContentLoaded', () => {
     // Constants
     const ITEMS_PER_PAGE = 12;
     const ARROW_ICON = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>';
+    const CHEVRON_LEFT = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>';
+    const CHEVRON_RIGHT = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>';
+    const CHEVRON_FIRST = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="13 18 7 12 13 6"></polyline><line x1="17" y1="6" x2="17" y2="18"></line></svg>';
+    const CHEVRON_LAST = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="11 18 17 12 11 6"></polyline><line x1="7" y1="6" x2="7" y2="18"></line></svg>';
     const THEME_COLORS = { dark: '#202020', light: '#f0f0f0' };
     const DEFAULTS = { page: 1, platform: 'all', tag: 'all', sort: 'newest', q: '' };
+    const SCROLL_TOP_THRESHOLD = 300;
 
     // State
     const allContent = window.CONTENT_DATA || [];
@@ -114,8 +124,17 @@ document.addEventListener('DOMContentLoaded', () => {
         const btn = document.createElement('button');
         btn.className = 'btn-filter';
         btn.dataset.tag = tag;
-        btn.textContent = tag;
+        btn.innerHTML = `${escapeHtml(tag)}<span class="filter-count"></span>`;
         tagFiltersContainer.appendChild(btn);
+    });
+
+    // Also add count spans to platform filter buttons (except "All")
+    platformFilters.querySelectorAll('.btn-filter').forEach(btn => {
+        if (btn.dataset.platform !== 'all') {
+            const span = document.createElement('span');
+            span.className = 'filter-count';
+            btn.appendChild(span);
+        }
     });
 
     // ─── Initialize from URL ────────────────────────────────────────────
@@ -125,8 +144,11 @@ document.addEventListener('DOMContentLoaded', () => {
     renderContent();
 
     function syncUIToState() {
-        // Search
-        searchInput.value = currentFilter;
+        // Search — preserve original casing if the lowercased values match
+        if (searchInput.value.toLowerCase() !== currentFilter) {
+            searchInput.value = currentFilter;
+        }
+        updateSearchClearVisibility();
 
         // Sort buttons
         sortButtons.forEach(btn => {
@@ -144,6 +166,10 @@ document.addEventListener('DOMContentLoaded', () => {
         tagFiltersContainer.querySelectorAll('.btn-filter').forEach(btn => {
             btn.classList.toggle('active', btn.dataset.tag === currentTag);
         });
+
+        // Reset button & active filters bar
+        updateResetButtonVisibility();
+        renderActiveFilters();
     }
 
     // ─── Event Listeners ────────────────────────────────────────────────
@@ -154,9 +180,21 @@ document.addEventListener('DOMContentLoaded', () => {
         debounceTimer = setTimeout(() => {
             currentFilter = e.target.value.toLowerCase();
             currentPage = 1;
+            updateSearchClearVisibility();
             pushState();
             renderContent();
         }, 150);
+    });
+
+    // Clear search button
+    searchClear.addEventListener('click', () => {
+        searchInput.value = '';
+        currentFilter = '';
+        currentPage = 1;
+        updateSearchClearVisibility();
+        pushState();
+        renderContent();
+        searchInput.focus();
     });
 
     // Sort buttons
@@ -196,6 +234,10 @@ document.addEventListener('DOMContentLoaded', () => {
         renderContent();
     });
 
+    // Reset all filters
+    resetFiltersBtn.addEventListener('click', resetAllFilters);
+    noResultsReset.addEventListener('click', resetAllFilters);
+
     // Card clicks (event delegation)
     contentGrid.addEventListener('click', (e) => {
         const card = e.target.closest('.session-card');
@@ -229,13 +271,129 @@ document.addEventListener('DOMContentLoaded', () => {
     // Modal Events
     modalClose.addEventListener('click', closeModal);
     modalOverlay.addEventListener('click', (e) => { if (e.target === modalOverlay) closeModal(); });
+
+    // Keyboard shortcuts
     document.addEventListener('keydown', (e) => {
-        if (!isModalOpen) return;
-        if (e.key === 'Escape') closeModal();
-        else if (e.key === 'Tab') handleModalTabKey(e);
+        // Modal-specific keys
+        if (isModalOpen) {
+            if (e.key === 'Escape') closeModal();
+            else if (e.key === 'Tab') handleModalTabKey(e);
+            return;
+        }
+
+        // "/" to focus search (when not already in an input and modal not open)
+        if (e.key === '/' && !isModalOpen) {
+            const active = document.activeElement;
+            const isInput = active && (active.tagName === 'INPUT' || active.tagName === 'TEXTAREA' || active.isContentEditable);
+            if (!isInput) {
+                e.preventDefault();
+                searchInput.focus();
+            }
+        }
+    });
+
+    // Scroll to top button
+    let scrollTicking = false;
+    window.addEventListener('scroll', () => {
+        if (!scrollTicking) {
+            requestAnimationFrame(() => {
+                scrollTopBtn.classList.toggle('visible', window.scrollY > SCROLL_TOP_THRESHOLD);
+                scrollTicking = false;
+            });
+            scrollTicking = true;
+        }
+    }, { passive: true });
+
+    scrollTopBtn.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    // ─── Reset All Filters ──────────────────────────────────────────────
+
+    function resetAllFilters() {
+        currentFilter = '';
+        currentPlatform = DEFAULTS.platform;
+        currentTag = DEFAULTS.tag;
+        currentSort = DEFAULTS.sort;
+        currentPage = DEFAULTS.page;
+        searchInput.value = '';
+
+        syncUIToState();
+        pushState();
+        renderContent();
+        searchInput.focus();
+    }
+
+    // ─── Search Clear Visibility ────────────────────────────────────────
+
+    function updateSearchClearVisibility() {
+        const hasValue = searchInput.value.length > 0;
+        searchClear.classList.toggle('hidden', !hasValue);
+    }
+
+    // ─── Reset Button Visibility ────────────────────────────────────────
+
+    function updateResetButtonVisibility() {
+        const hasActiveFilters =
+            currentPlatform !== DEFAULTS.platform ||
+            currentTag !== DEFAULTS.tag ||
+            currentSort !== DEFAULTS.sort ||
+            currentFilter !== DEFAULTS.q;
+        resetFiltersBtn.classList.toggle('hidden', !hasActiveFilters);
+    }
+
+    // ─── Active Filters Bar ─────────────────────────────────────────────
+
+    function renderActiveFilters() {
+        const chips = [];
+
+        if (currentPlatform !== DEFAULTS.platform) {
+            chips.push({ label: `Platform: ${platformLabel(currentPlatform)}`, action: 'platform' });
+        }
+        if (currentTag !== DEFAULTS.tag) {
+            chips.push({ label: `Tag: ${currentTag}`, action: 'tag' });
+        }
+        if (currentSort !== DEFAULTS.sort) {
+            chips.push({ label: `Sort: ${currentSort === 'oldest' ? 'Oldest first' : 'Newest first'}`, action: 'sort' });
+        }
+        if (currentFilter) {
+            chips.push({ label: `Search: "${currentFilter}"`, action: 'search' });
+        }
+
+        if (chips.length === 0) {
+            activeFiltersBar.classList.add('hidden');
+            activeFiltersBar.innerHTML = '';
+            return;
+        }
+
+        activeFiltersBar.classList.remove('hidden');
+        activeFiltersBar.innerHTML = chips.map(chip =>
+            `<button class="active-filter-chip" data-dismiss="${escapeHtml(chip.action)}" aria-label="Remove filter: ${escapeHtml(chip.label)}">${escapeHtml(chip.label)} <span class="chip-dismiss">&times;</span></button>`
+        ).join('');
+    }
+
+    // Active filter chip dismissal
+    activeFiltersBar.addEventListener('click', (e) => {
+        const chip = e.target.closest('.active-filter-chip');
+        if (!chip) return;
+        const action = chip.dataset.dismiss;
+
+        if (action === 'platform') currentPlatform = DEFAULTS.platform;
+        else if (action === 'tag') currentTag = DEFAULTS.tag;
+        else if (action === 'sort') currentSort = DEFAULTS.sort;
+        else if (action === 'search') { currentFilter = ''; searchInput.value = ''; }
+
+        currentPage = 1;
+        syncUIToState();
+        pushState();
+        renderContent();
     });
 
     // ─── Utility Functions ──────────────────────────────────────────────
+
+    function getSearchableText(item) {
+        return `${item.title} ${item.tags.join(' ')} ${item.id} ${item.platform}`.toLowerCase();
+    }
 
     function escapeHtml(unsafe) {
         if (!unsafe) return '';
@@ -252,20 +410,60 @@ document.addEventListener('DOMContentLoaded', () => {
         return '#';
     }
 
-    function formatId(item) {
-        if (item.platform === 'youtube') {
-            const d = item.id;
-            if (d.length === 8) return `${d.slice(0, 4)}-${d.slice(4, 6)}-${d.slice(6, 8)}`;
-        }
-        return item.id;
-    }
-
     function platformLabel(platform) {
         return platform === 'linkedin' ? 'LinkedIn' : 'YouTube';
     }
 
     function sortKey(item) {
         return parseInt(item.id, 10) || 0;
+    }
+
+    // ─── Filter Count Badges ────────────────────────────────────────────
+
+    function updateFilterCounts() {
+        // Platform counts — count how many items match current tag & search, per platform
+        const platformCounts = { linkedin: 0, youtube: 0 };
+        const tagCounts = {};
+        allTags.forEach(t => { tagCounts[t] = 0; });
+
+        allContent.forEach(item => {
+            // Check if item matches tag & search (for platform counts)
+            const matchesTag = currentTag === 'all' || item.tags.includes(currentTag);
+            const matchesSearch = !currentFilter || getSearchableText(item).includes(currentFilter);
+
+            if (matchesTag && matchesSearch) {
+                if (platformCounts[item.platform] !== undefined) {
+                    platformCounts[item.platform]++;
+                }
+            }
+
+            // Check if item matches platform & search (for tag counts)
+            const matchesPlatform = currentPlatform === 'all' || item.platform === currentPlatform;
+            if (matchesPlatform && matchesSearch) {
+                item.tags.forEach(t => {
+                    if (tagCounts[t] !== undefined) tagCounts[t]++;
+                });
+            }
+        });
+
+        // Update platform buttons
+        platformFilters.querySelectorAll('.btn-filter').forEach(btn => {
+            const countSpan = btn.querySelector('.filter-count');
+            if (!countSpan) return;
+            const platform = btn.dataset.platform;
+            const count = platformCounts[platform] || 0;
+            countSpan.textContent = count;
+        });
+
+        // Update tag buttons
+        tagFiltersContainer.querySelectorAll('.btn-filter').forEach(btn => {
+            const countSpan = btn.querySelector('.filter-count');
+            if (!countSpan) return;
+            const tag = btn.dataset.tag;
+            if (tag === 'all') return;
+            const count = tagCounts[tag] || 0;
+            countSpan.textContent = count;
+        });
     }
 
     // ─── Render ─────────────────────────────────────────────────────────
@@ -276,8 +474,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (currentPlatform !== 'all' && item.platform !== currentPlatform) return false;
             if (currentTag !== 'all' && !item.tags.includes(currentTag)) return false;
             if (currentFilter) {
-                const searchable = `${item.title} ${item.tags.join(' ')} ${item.id} ${item.platform}`.toLowerCase();
-                if (!searchable.includes(currentFilter)) return false;
+                if (!getSearchableText(item).includes(currentFilter)) return false;
             }
             return true;
         });
@@ -289,10 +486,17 @@ document.addEventListener('DOMContentLoaded', () => {
             return currentSort === 'newest' ? bKey - aKey : aKey - bKey;
         });
 
+        // Update filter count badges
+        updateFilterCounts();
+
+        // Update active filters bar & reset button
+        updateResetButtonVisibility();
+        renderActiveFilters();
+
         // Pagination math
         const totalItems = filtered.length;
         const totalPages = Math.max(1, Math.ceil(totalItems / ITEMS_PER_PAGE));
-        if (currentPage > totalPages) currentPage = totalPages;
+        currentPage = Math.max(1, Math.min(currentPage, totalPages));
         const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
         const endIndex = Math.min(startIndex + ITEMS_PER_PAGE, totalItems);
         const pageItems = filtered.slice(startIndex, endIndex);
@@ -301,7 +505,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (totalItems === 0) {
             resultsCount.textContent = 'No items found';
         } else {
-            resultsCount.textContent = `Showing ${startIndex + 1}–${endIndex} of ${totalItems} items`;
+            resultsCount.textContent = `Showing ${startIndex + 1}\u2013${endIndex} of ${totalItems} items`;
         }
 
         // Render cards
@@ -348,11 +552,14 @@ document.addEventListener('DOMContentLoaded', () => {
         const pages = getPageNumbers(currentPage, totalPages);
         let html = '';
 
+        const onFirst = currentPage === 1;
+        const onLast = currentPage === totalPages;
+
+        // First page button
+        html += `<button class="page-btn page-first" data-page="1" ${onFirst ? 'disabled' : ''} aria-label="First page">${CHEVRON_FIRST}</button>`;
+
         // Previous button
-        html += `<button class="page-btn page-prev" data-page="${currentPage - 1}" ${currentPage === 1 ? 'disabled' : ''} aria-label="Previous page">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
-            Prev
-        </button>`;
+        html += `<button class="page-btn page-prev" data-page="${currentPage - 1}" ${onFirst ? 'disabled' : ''} aria-label="Previous page">${CHEVRON_LEFT}</button>`;
 
         // Page numbers
         for (const page of pages) {
@@ -365,10 +572,10 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         // Next button
-        html += `<button class="page-btn page-next" data-page="${currentPage + 1}" ${currentPage === totalPages ? 'disabled' : ''} aria-label="Next page">
-            Next
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
-        </button>`;
+        html += `<button class="page-btn page-next" data-page="${currentPage + 1}" ${onLast ? 'disabled' : ''} aria-label="Next page">${CHEVRON_RIGHT}</button>`;
+
+        // Last page button
+        html += `<button class="page-btn page-last" data-page="${totalPages}" ${onLast ? 'disabled' : ''} aria-label="Last page">${CHEVRON_LAST}</button>`;
 
         paginationContainer.innerHTML = html;
     }
@@ -428,7 +635,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function openModal(item) {
-        modalId.innerHTML = `<span class="platform-badge ${escapeHtml(item.platform)}">${platformLabel(item.platform)}</span> ${escapeHtml(formatId(item))}`;
+        modalId.innerHTML = `<span class="platform-badge ${escapeHtml(item.platform)}">${platformLabel(item.platform)}</span>`;
         modalTitle.textContent = item.title;
 
         modalTags.innerHTML = item.tags.map(t => `<span class="tag-badge">${escapeHtml(t)}</span>`).join('');

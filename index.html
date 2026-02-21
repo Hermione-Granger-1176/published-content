@@ -57,16 +57,17 @@
         <section class="controls">
             <div class="search-wrapper">
                 <label for="search-input" class="visually-hidden">Search content</label>
-                <input type="text" id="search-input" placeholder="Find a post or session..." autocomplete="off">
+                <input type="text" id="search-input" placeholder="Find a post or session...  ( / )" autocomplete="off">
                 <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <circle cx="11" cy="11" r="8"></circle>
                     <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
                 </svg>
+                <button id="search-clear" class="search-clear hidden" aria-label="Clear search">&times;</button>
             </div>
             <div class="sort-wrapper" role="group" aria-label="Sort order">
-                <button class="btn btn-sort" data-sort="newest">Newest</button>
-                <button class="btn btn-sort" data-sort="oldest">Oldest</button>
+                <button class="btn-sort" data-sort="newest">Newest</button>
+                <button class="btn-sort" data-sort="oldest">Oldest</button>
             </div>
         </section>
 
@@ -82,7 +83,17 @@
                 <button class="btn-filter active" data-tag="all">All</button>
                 <!-- Tag buttons are generated dynamically by app.js -->
             </div>
+            <button id="reset-filters" class="btn-reset hidden" aria-label="Reset all filters">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="1 4 1 10 7 10"></polyline>
+                    <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path>
+                </svg>
+                Reset
+            </button>
         </section>
+
+        <div id="active-filters" class="active-filters hidden" aria-live="polite"></div>
 
         <div id="results-count" class="results-count" aria-live="polite"></div>
 
@@ -94,6 +105,7 @@
 
         <div id="no-results" class="no-results hidden" role="status">
             <p>No content found matching your filters.</p>
+            <button id="no-results-reset" class="btn-reset-link">Clear all filters</button>
         </div>
     </main>
 
@@ -102,7 +114,7 @@
         <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="modal-title" tabindex="-1">
             <button id="modal-close" class="modal-close" aria-label="Close dialog">&times;</button>
             <div class="modal-header">
-                <div id="modal-id" class="modal-id">POST 0001</div>
+                <div id="modal-id" class="modal-id"></div>
                 <h2 id="modal-title" class="modal-title">Title</h2>
                 <div id="modal-tags" class="modal-tags"></div>
             </div>
@@ -131,6 +143,13 @@
             </div>
         </div>
     </div>
+
+    <button id="scroll-top" class="scroll-top" aria-label="Scroll to top">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="18 15 12 9 6 15"></polyline>
+        </svg>
+    </button>
 
     <footer class="footer">
         <p>&copy; Aditya Kumar Darak &middot; <a href="https://www.linkedin.com/in/aditya-darak/" target="_blank" rel="noopener noreferrer">LinkedIn</a> &middot; <a href="https://www.youtube.com/" target="_blank" rel="noopener noreferrer">YouTube</a></p>
