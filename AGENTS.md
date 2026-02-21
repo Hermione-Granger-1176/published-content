@@ -26,7 +26,7 @@ Do not manually edit these outputs unless you are updating generator logic.
 - Auto-managed marker sections in `README.md`:
   - `LINKEDIN_COUNT`
   - `YOUTUBE_COUNT`
-  - `TOTAL_BADGE_COUNT`
+  - `TOTAL_BADGE`
   - `TOTAL_COUNT`
   - `TOPIC_BADGES` block
 
@@ -46,8 +46,10 @@ Content folders are the source of truth.
 2. GitHub Actions runs `.github/workflows/update.yml` on push to `main`.
 3. The workflow runs `python scripts/generate_index.py`.
 4. The workflow commits any changes to `js/data.js` and `README.md`.
+5. The workflow deploys the site to GitHub Pages.
 
 This works even when content is added directly from GitHub web UI.
+Pages source is set to **GitHub Actions** (not branch-based).
 
 ## Editing Rules for Agents
 

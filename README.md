@@ -66,7 +66,7 @@ This repository is a structured portfolio of all educational content I publish a
       <strong><!-- AUTO:YOUTUBE_COUNT -->12<!-- /AUTO:YOUTUBE_COUNT --></strong> Sessions
     </td>
     <td align="center">
-      <img src="https://img.shields.io/badge/Total-<!-- AUTO:TOTAL_BADGE_COUNT -->41<!-- /AUTO:TOTAL_BADGE_COUNT -->-FFD100?style=for-the-badge" alt="Total"><br>
+      <!-- AUTO:TOTAL_BADGE --><img src="https://img.shields.io/badge/Total-41-FFD100?style=for-the-badge" alt="Total"><!-- /AUTO:TOTAL_BADGE --><br>
       <strong><!-- AUTO:TOTAL_COUNT -->41<!-- /AUTO:TOTAL_COUNT --></strong> Items
     </td>
   </tr>

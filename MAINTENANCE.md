@@ -136,16 +136,14 @@ No code changes or restructuring needed.
 
 ### GitHub Action (`.github/workflows/update.yml`)
 
-Triggered on every push to `main` that changes files in:
-- `linkedin/**`
-- `youtube/**`
-- `scripts/**`
+Triggered on every push to `main` (any file) and on manual dispatch.
 
 What it does:
 1. Checks out the repo
 2. Runs `python scripts/generate_index.py`
 3. Commits updated `js/data.js` and `README.md` if they changed
 4. Pushes the commit
+5. Deploys the site to GitHub Pages
 
 ### The Generate Script (`scripts/generate_index.py`)
 
@@ -195,9 +193,6 @@ To preview changes before pushing:
 
 ## Deploying to GitHub Pages
 
-1. Go to the repo Settings > Pages
-2. Set source to **Deploy from a branch**
-3. Select **main** branch, **/ (root)** folder
-4. Save
+GitHub Pages is deployed automatically by the GitHub Actions workflow on every push to `main`. The source is set to **GitHub Actions** (not branch-based).
 
-The site will be live at `https://hermione-granger-1176.github.io/published-content/`
+No manual deployment steps are needed. The site is live at `https://hermione-granger-1176.github.io/published-content/`

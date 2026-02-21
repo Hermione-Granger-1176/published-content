@@ -314,9 +314,14 @@ def _update_readme(items: list[ContentItem]) -> None:
     all_tags = {tag for item in items for tag in item["tags"]}
 
     readme = README_FILE.read_text(encoding="utf-8")
+    total_badge = (
+        f'<img src="https://img.shields.io/badge/Total-{total_count}'
+        f'-FFD100?style=for-the-badge" alt="Total">'
+    )
+
     readme = _replace_inline_marker(readme, "LINKEDIN_COUNT", str(linkedin_count))
     readme = _replace_inline_marker(readme, "YOUTUBE_COUNT", str(youtube_count))
-    readme = _replace_inline_marker(readme, "TOTAL_BADGE_COUNT", str(total_count))
+    readme = _replace_inline_marker(readme, "TOTAL_BADGE", total_badge)
     readme = _replace_inline_marker(readme, "TOTAL_COUNT", str(total_count))
     readme = _replace_block_marker(
         readme, "TOPIC_BADGES", _build_topic_badges(all_tags)
