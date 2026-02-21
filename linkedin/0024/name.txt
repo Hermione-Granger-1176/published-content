@@ -1,0 +1,1 @@
+Splitting Many Columns at Same Time in Power Query

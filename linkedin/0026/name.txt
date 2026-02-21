@@ -1,0 +1,1 @@
+Super.Trim Function in Power Query

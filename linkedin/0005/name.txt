@@ -1,0 +1,1 @@
+Calculating Portfolio Return in Power Query

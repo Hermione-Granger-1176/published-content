@@ -1,0 +1,1 @@
+Excel.Trim Function in Power Query

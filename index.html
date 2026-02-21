@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Published Content - A portfolio of educational posts and video sessions on Excel, Power Query, and more.">
+    <title>Published Content</title>
+    <script>document.documentElement.dataset.theme = localStorage.getItem('theme') || 'dark';</script>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"
+        media="print" onload="this.media='all'">
+    <noscript>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+            rel="stylesheet">
+    </noscript>
+    <meta name="theme-color" content="#202020">
+</head>
+
+<body>
+    <header class="header">
+        <div class="header-content">
+            <h1 class="logo">Published Content</h1>
+            <button id="theme-toggle" class="btn-icon" aria-label="Toggle Dark Mode">
+                <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="5"></circle>
+                    <line x1="12" y1="1" x2="12" y2="3"></line>
+                    <line x1="12" y1="21" x2="12" y2="23"></line>
+                    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                    <line x1="1" y1="12" x2="3" y2="12"></line>
+                    <line x1="21" y1="12" x2="23" y2="12"></line>
+                    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                </svg>
+                <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                </svg>
+            </button>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="controls">
+            <div class="search-wrapper">
+                <label for="search-input" class="visually-hidden">Search content</label>
+                <input type="text" id="search-input" placeholder="Find a post or session..." autocomplete="off">
+                <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+            </div>
+            <div class="sort-wrapper" role="group" aria-label="Sort order">
+                <button class="btn btn-sort" data-sort="newest">Newest</button>
+                <button class="btn btn-sort" data-sort="oldest">Oldest</button>
+            </div>
+        </section>
+
+        <section class="filter-section" aria-label="Filters">
+            <div class="filter-group" id="platform-filters" role="group" aria-label="Platform filter">
+                <span class="filter-label">Platform</span>
+                <button class="btn-filter active" data-platform="all">All</button>
+                <button class="btn-filter" data-platform="linkedin">LinkedIn</button>
+                <button class="btn-filter" data-platform="youtube">YouTube</button>
+            </div>
+            <div class="filter-group" id="tag-filters" role="group" aria-label="Tag filter">
+                <span class="filter-label">Tags</span>
+                <button class="btn-filter active" data-tag="all">All</button>
+                <!-- Tag buttons are generated dynamically by app.js -->
+            </div>
+        </section>
+
+        <div id="results-count" class="results-count" aria-live="polite"></div>
+
+        <section id="content-grid" class="sessions-grid" aria-live="polite">
+            <!-- Content cards injected by app.js -->
+        </section>
+
+        <nav id="pagination" class="pagination" aria-label="Pagination"></nav>
+
+        <div id="no-results" class="no-results hidden" role="status">
+            <p>No content found matching your filters.</p>
+        </div>
+    </main>
+
+    <!-- Detail Modal -->
+    <div id="modal-overlay" class="modal-overlay" aria-hidden="true">
+        <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="modal-title" tabindex="-1">
+            <button id="modal-close" class="modal-close" aria-label="Close dialog">&times;</button>
+            <div class="modal-header">
+                <div id="modal-id" class="modal-id">POST 0001</div>
+                <h2 id="modal-title" class="modal-title">Title</h2>
+                <div id="modal-tags" class="modal-tags"></div>
+            </div>
+            <div class="modal-body">
+                <div class="modal-actions">
+                    <a id="modal-url" href="#" target="_blank" rel="noopener noreferrer" class="btn btn-primary hidden">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                            <polyline points="15 3 21 3 21 9"></polyline>
+                            <line x1="10" y1="14" x2="21" y2="3"></line>
+                        </svg>
+                        <span id="modal-url-text">View Post</span>
+                    </a>
+                    <a id="modal-download" href="#" target="_blank" rel="noopener noreferrer"
+                        class="btn btn-secondary hidden">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                            <polyline points="7 10 12 15 17 10"></polyline>
+                            <line x1="12" y1="15" x2="12" y2="3"></line>
+                        </svg>
+                        Download Files
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>&copy; Published Content</p>
+    </footer>
+
+    <script src="js/data.js"></script>
+    <script src="js/app.js"></script>
+</body>
+
+</html>

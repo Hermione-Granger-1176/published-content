@@ -1,0 +1,1 @@
+My Value.Comparer Tricks in Power Query
