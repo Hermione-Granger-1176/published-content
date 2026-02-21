@@ -325,7 +325,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 <div>
                     <div class="session-id">
                         <span class="platform-badge ${escapeHtml(item.platform)}">${platformLabel(item.platform)}</span>
-                        ${escapeHtml(formatId(item))}
                     </div>
                     <h3 class="session-title">${escapeHtml(item.title)}</h3>
                     <div class="card-tags">${tagsHtml}</div>

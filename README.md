@@ -1,77 +1,113 @@
-# Published Content
+<div align="center">
 
-A portfolio of educational content published on LinkedIn and YouTube, covering Excel, Power Query, and data analysis.
+<img src="https://avatars.githubusercontent.com/u/81145827?v=4" width="150" style="border-radius: 50%;" alt="Aditya Kumar Darak">
 
-## Structure
+# Aditya Kumar Darak
 
-```
-published-content/
-├── linkedin/           # LinkedIn posts
-│   ├── 0001/           # Sequential numbering
-│   ├── 0002/
-│   └── ...
-├── youtube/            # YouTube sessions
-│   ├── 20241129/       # Date-based (YYYYMMDD)
-│   ├── 20241206/
-│   └── ...
-├── scripts/            # Index generation script
-├── css/                # Website styles
-├── js/                 # Website logic + generated data
-└── index.html          # Browsable website
-```
+**Helping Finance Teams Go Home Early with Agentic AI + Automation**
 
-Each content folder contains:
+Microsoft MVP &middot; Curiosity Catalyst &middot; #TheGamingLearning
 
-| File | Purpose |
-|---|---|
-| `name.txt` | Title of the post or session |
-| `url.txt` | URL to the original post or video |
-| `tags.txt` | Tags, one per line |
-| `Files.zip` | Downloadable materials |
+<br>
 
-## Tags
+<a href="https://www.linkedin.com/in/aditya-darak/">
+  <img src="https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn">
+</a>&nbsp;
+<a href="https://www.youtube.com/">
+  <img src="https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white" alt="YouTube">
+</a>&nbsp;
+<a href="https://github.com/Hermione-Granger-1176">
+  <img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white" alt="GitHub">
+</a>&nbsp;
+<a href="https://www.self.so/aditya-kumar-darak">
+  <img src="https://img.shields.io/badge/Portfolio-000000?style=for-the-badge&logo=about.me&logoColor=white" alt="Portfolio">
+</a>
 
-| Tag | Description |
-|---|---|
-| `excel` | Excel formulas, charts, worksheet features |
-| `power-query` | Power Query / M code |
-| `m-code` | M language functions and techniques |
-| `formulas` | Excel formula techniques |
-| `charts` | Charts and data visualization |
-| `dynamic-arrays` | SEQUENCE, FILTER, SORT, etc. |
-| `data-analysis` | General data analysis techniques |
-| `data-cleaning` | Data transformation and cleaning |
+<br><br>
 
-## Adding New Content
+<img src="https://img.shields.io/badge/Microsoft-MVP-5C2D91?style=flat-square&logo=microsoft" alt="Microsoft MVP">&nbsp;
+<img src="https://img.shields.io/github/followers/Hermione-Granger-1176?style=flat-square&logo=github&label=Followers" alt="GitHub followers">&nbsp;
+<img src="https://img.shields.io/github/stars/Hermione-Granger-1176/published-content?style=flat-square&logo=github&label=Stars" alt="GitHub Stars">
 
-### LinkedIn Post
+</div>
 
-```bash
-mkdir linkedin/0030
-echo "Post Title" > linkedin/0030/name.txt
-echo "https://linkedin.com/..." > linkedin/0030/url.txt
-printf "power-query\nm-code" > linkedin/0030/tags.txt
-cp myfile.zip linkedin/0030/Files.zip
-```
+<br>
 
-### YouTube Session
+---
 
-```bash
-mkdir youtube/20260221
-echo "Session Title" > youtube/20260221/name.txt
-echo "https://youtu.be/..." > youtube/20260221/url.txt
-printf "excel\ndynamic-arrays" > youtube/20260221/tags.txt
-cp myfile.zip youtube/20260221/Files.zip
-```
+<br>
 
-Push to `main` and GitHub Actions will auto-update the website index.
+## About Me
 
-## Website
+I am constantly experimenting and pushing my boundaries to stay true to the philosophy: **"Never teach what you can't preach."**
 
-The `index.html` page provides a filterable, searchable interface for all content. It can be deployed via GitHub Pages.
+I hone my skills in analytics, data analysis, and visualization to uncover stories behind numbers. As a Chartered Accountancy professional, I am passionate about forensics, business analysis, and financial analysis.
 
-To regenerate the data index locally:
+Through **The Gaming Learning**, I share practical knowledge on Excel, Power Query, and data analysis -- helping individuals and finance teams work smarter, not harder.
 
-```bash
-python scripts/generate_index.py
-```
+<br>
+
+## Published Content
+
+This repository is a structured portfolio of all educational content I publish across social media. Each post and video session comes with downloadable practice files.
+
+<div align="center">
+
+### Platforms
+
+<table>
+  <tr>
+    <td align="center">
+      <img src="https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn"><br>
+      <strong>29</strong> Posts
+    </td>
+    <td align="center">
+      <img src="https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white" alt="YouTube"><br>
+      <strong>12</strong> Sessions
+    </td>
+    <td align="center">
+      <img src="https://img.shields.io/badge/Total-41-FFD100?style=for-the-badge" alt="Total"><br>
+      <strong>41</strong> Items
+    </td>
+  </tr>
+</table>
+
+### Topics Covered
+
+<img src="https://img.shields.io/badge/Excel-217346?style=flat-square&logo=microsoftexcel&logoColor=white" alt="Excel">&nbsp;
+<img src="https://img.shields.io/badge/Power_Query-F2C811?style=flat-square&logoColor=black" alt="Power Query">&nbsp;
+<img src="https://img.shields.io/badge/M_Code-8E44AD?style=flat-square&logoColor=white" alt="M Code">&nbsp;
+<img src="https://img.shields.io/badge/Formulas-27AE60?style=flat-square&logoColor=white" alt="Formulas">&nbsp;
+<img src="https://img.shields.io/badge/Dynamic_Arrays-4472C4?style=flat-square&logoColor=white" alt="Dynamic Arrays">&nbsp;
+<img src="https://img.shields.io/badge/Charts-E67E22?style=flat-square&logoColor=white" alt="Charts">&nbsp;
+<img src="https://img.shields.io/badge/Data_Analysis-2E86C1?style=flat-square&logoColor=white" alt="Data Analysis">&nbsp;
+<img src="https://img.shields.io/badge/Data_Cleaning-1ABC9C?style=flat-square&logoColor=white" alt="Data Cleaning">
+
+</div>
+
+<br>
+
+### Browse Content
+
+The content is available as a [**filterable website**](https://hermione-granger-1176.github.io/published-content/) -- search by title, filter by platform or tags, and download practice files directly.
+
+> **Looking for docs?** See [MAINTENANCE.md](MAINTENANCE.md) for how the repo is structured, how to add new content, and how the automation works.
+
+<br>
+
+---
+
+<div align="center">
+
+<br>
+
+**Why Am I on This Planet Earth?**
+
+I believe in the uniqueness of every individual and aim to reignite the curiosity and creativity within everyone.
+
+*Every child is unique, but as we grow into adults, our inner child often fades away.*
+*The Gaming Learning is on a mission to awaken that inner child in you.*
+
+<br>
+
+</div>

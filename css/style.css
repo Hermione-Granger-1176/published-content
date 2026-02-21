@@ -92,6 +92,20 @@ body {
     align-items: center;
 }
 
+.logo-link {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    text-decoration: none;
+}
+
+.logo-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: var(--radius-full);
+    object-fit: cover;
+}
+
 .logo {
     font-size: 1.5rem;
     font-weight: 700;
@@ -131,6 +145,16 @@ body {
     text-align: center;
     color: var(--text-secondary);
     border-top: 1px solid var(--border-color);
+}
+
+.footer a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+}
+
+.footer a:hover {
+    color: var(--accent);
 }
 
 .search-wrapper {
