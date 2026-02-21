@@ -2,7 +2,7 @@
 """
 Generate Content Index
 
-Scans the linkedin/ and youtube/ folders and generates a JavaScript data file
+Scans the content/linkedin/ and content/youtube/ folders and generates a JavaScript data file
 (js/data.js) containing all content information. This file is used by the
 index.html website to display filterable, searchable content.
 
@@ -36,8 +36,9 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 # Configuration
-LINKEDIN_DIR = Path("linkedin")
-YOUTUBE_DIR = Path("youtube")
+CONTENT_ROOT = Path("content")
+LINKEDIN_DIR = CONTENT_ROOT / "linkedin"
+YOUTUBE_DIR = CONTENT_ROOT / "youtube"
 JS_OUTPUT_FILE = Path("js/data.js")
 README_FILE = Path("README.md")
 

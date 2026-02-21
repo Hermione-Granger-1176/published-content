@@ -6,21 +6,22 @@ This document is for **"Future Me"** (and anyone else contributing) to remember 
 
 ```
 published-content/
-├── linkedin/                # LinkedIn posts
-│   ├── 0001/                # Sequential 4-digit numbering
-│   │   ├── name.txt         # Post title
-│   │   ├── url.txt          # LinkedIn post URL
-│   │   ├── tags.txt         # Tags, one per line
-│   │   └── Files.zip        # Practice files
-│   ├── 0002/
-│   └── ...
-├── youtube/                 # YouTube sessions
-│   ├── 20241129/            # Date-based naming (YYYYMMDD)
-│   │   ├── name.txt         # Session title
-│   │   ├── url.txt          # YouTube video URL
-│   │   ├── tags.txt         # Tags, one per line
-│   │   └── Files.zip        # Session files
-│   └── ...
+├── content/                 # Content root directory
+│   ├── linkedin/            # LinkedIn posts
+│   │   ├── 0001/            # Sequential 4-digit numbering
+│   │   │   ├── name.txt     # Post title
+│   │   │   ├── url.txt      # LinkedIn post URL
+│   │   │   ├── tags.txt     # Tags, one per line
+│   │   │   └── Files.zip    # Practice files
+│   │   ├── 0002/
+│   │   └── ...
+│   ├── youtube/             # YouTube sessions
+│   │   ├── 20241129/        # Date-based naming (YYYYMMDD)
+│   │   │   ├── name.txt     # Session title
+│   │   │   ├── url.txt      # YouTube video URL
+│   │   │   ├── tags.txt     # Tags, one per line
+│   │   │   └── Files.zip    # Session files
+│   │   └── ...
 ├── scripts/
 │   └── generate_index.py    # Scans folders, generates js/data.js + README auto sections
 ├── css/
@@ -41,12 +42,12 @@ published-content/
 
 You don't need to touch any code. Just follow this process:
 
-1. **Find the next number.** Check the last folder in `linkedin/` and increment by 1 (e.g., if `0029` exists, create `0030`).
+1. **Find the next number.** Check the last folder in `content/linkedin/` and increment by 1 (e.g., if `0029` exists, create `0030`).
 
 2. **Create the folder and files:**
 
     ```bash
-    mkdir linkedin/0030
+    mkdir content/linkedin/0030
     ```
 
 3. **Add the required files:**
@@ -82,7 +83,7 @@ You don't need to touch any code. Just follow this process:
 4. **Push to GitHub:**
 
     ```bash
-    git add linkedin/0030
+    git add content/linkedin/0030
     git commit -m "Add post 0030: How to Build a Financial Dashboard in Excel"
     git push
     ```
@@ -96,7 +97,7 @@ You don't need to touch any code. Just follow this process:
 2. **Create the folder and files:**
 
     ```bash
-    mkdir youtube/20260221
+    mkdir content/youtube/20260221
     ```
 
 3. **Add the same set of files** as LinkedIn (name.txt, url.txt, tags.txt, Files.zip), but with the YouTube video URL:
@@ -147,7 +148,7 @@ What it does:
 
 ### The Generate Script (`scripts/generate_index.py`)
 
-- Scans all folders in `linkedin/` and `youtube/`
+- Scans all folders in `content/linkedin/` and `content/youtube/`
 - Reads `name.txt`, `url.txt`, `tags.txt` from each
 - Checks for `Files.zip` existence
 - Outputs `js/data.js` with a `window.CONTENT_DATA` array

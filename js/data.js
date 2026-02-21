@@ -8,7 +8,7 @@ window.CONTENT_DATA = [
       "power-query",
       "m-code"
     ],
-    "download_url": "linkedin/0001/Files.zip"
+    "download_url": "content/linkedin/0001/Files.zip"
   },
   {
     "id": "0002",
@@ -19,7 +19,7 @@ window.CONTENT_DATA = [
       "excel",
       "data-analysis"
     ],
-    "download_url": "linkedin/0002/Files.zip"
+    "download_url": "content/linkedin/0002/Files.zip"
   },
   {
     "id": "0003",
@@ -30,7 +30,7 @@ window.CONTENT_DATA = [
       "excel",
       "charts"
     ],
-    "download_url": "linkedin/0003/Files.zip"
+    "download_url": "content/linkedin/0003/Files.zip"
   },
   {
     "id": "0004",
@@ -41,7 +41,7 @@ window.CONTENT_DATA = [
       "excel",
       "formulas"
     ],
-    "download_url": "linkedin/0004/Files.zip"
+    "download_url": "content/linkedin/0004/Files.zip"
   },
   {
     "id": "0005",
@@ -52,7 +52,7 @@ window.CONTENT_DATA = [
       "power-query",
       "m-code"
     ],
-    "download_url": "linkedin/0005/Files.zip"
+    "download_url": "content/linkedin/0005/Files.zip"
   },
   {
     "id": "0006",
@@ -63,7 +63,7 @@ window.CONTENT_DATA = [
       "power-query",
       "m-code"
     ],
-    "download_url": "linkedin/0006/Files.zip"
+    "download_url": "content/linkedin/0006/Files.zip"
   },
   {
     "id": "0007",
@@ -74,7 +74,7 @@ window.CONTENT_DATA = [
       "power-query",
       "m-code"
     ],
-    "download_url": "linkedin/0007/Files.zip"
+    "download_url": "content/linkedin/0007/Files.zip"
   },
   {
     "id": "0008",
@@ -85,7 +85,7 @@ window.CONTENT_DATA = [
       "power-query",
       "m-code"
     ],
-    "download_url": "linkedin/0008/Files.zip"
+    "download_url": "content/linkedin/0008/Files.zip"
   },
   {
     "id": "0009",
@@ -96,7 +96,7 @@ window.CONTENT_DATA = [
       "excel",
       "formulas"
     ],
-    "download_url": "linkedin/0009/Files.zip"
+    "download_url": "content/linkedin/0009/Files.zip"
   },
   {
     "id": "0010",
@@ -107,7 +107,7 @@ window.CONTENT_DATA = [
       "power-query",
       "m-code"
     ],
-    "download_url": "linkedin/0010/Files.zip"
+    "download_url": "content/linkedin/0010/Files.zip"
   },
   {
     "id": "0011",
@@ -118,7 +118,7 @@ window.CONTENT_DATA = [
       "power-query",
       "m-code"
     ],
-    "download_url": "linkedin/0011/Files.zip"
+    "download_url": "content/linkedin/0011/Files.zip"
   },
   {
     "id": "0012",
@@ -129,7 +129,7 @@ window.CONTENT_DATA = [
       "power-query",
       "m-code"
     ],
-    "download_url": "linkedin/0012/Files.zip"
+    "download_url": "content/linkedin/0012/Files.zip"
   },
   {
     "id": "0013",
@@ -140,7 +140,7 @@ window.CONTENT_DATA = [
       "power-query",
       "m-code"
     ],
-    "download_url": "linkedin/0013/Files.zip"
+    "download_url": "content/linkedin/0013/Files.zip"
   },
   {
     "id": "0014",
@@ -151,7 +151,7 @@ window.CONTENT_DATA = [
       "power-query",
       "m-code"
     ],
-    "download_url": "linkedin/0014/Files.zip"
+    "download_url": "content/linkedin/0014/Files.zip"
   },
   {
     "id": "0015",
@@ -162,7 +162,7 @@ window.CONTENT_DATA = [
       "power-query",
       "data-analysis"
     ],
-    "download_url": "linkedin/0015/Files.zip"
+    "download_url": "content/linkedin/0015/Files.zip"
   },
   {
     "id": "0016",
@@ -173,7 +173,7 @@ window.CONTENT_DATA = [
       "power-query",
       "m-code"
     ],
-    "download_url": "linkedin/0016/Files.zip"
+    "download_url": "content/linkedin/0016/Files.zip"
   },
   {
     "id": "0017",
@@ -184,7 +184,7 @@ window.CONTENT_DATA = [
       "power-query",
       "m-code"
     ],
-    "download_url": "linkedin/0017/Files.zip"
+    "download_url": "content/linkedin/0017/Files.zip"
   },
   {
     "id": "0018",
@@ -196,7 +196,7 @@ window.CONTENT_DATA = [
       "m-code",
       "data-cleaning"
     ],
-    "download_url": "linkedin/0018/Files.zip"
+    "download_url": "content/linkedin/0018/Files.zip"
   },
   {
     "id": "0019",
@@ -207,7 +207,7 @@ window.CONTENT_DATA = [
       "excel",
       "formulas"
     ],
-    "download_url": "linkedin/0019/Files.zip"
+    "download_url": "content/linkedin/0019/Files.zip"
   },
   {
     "id": "0020",
@@ -218,7 +218,7 @@ window.CONTENT_DATA = [
       "power-query",
       "m-code"
     ],
-    "download_url": "linkedin/0020/Files.zip"
+    "download_url": "content/linkedin/0020/Files.zip"
   },
   {
     "id": "0021",
@@ -229,7 +229,7 @@ window.CONTENT_DATA = [
       "excel",
       "formulas"
     ],
-    "download_url": "linkedin/0021/Files.zip"
+    "download_url": "content/linkedin/0021/Files.zip"
   },
   {
     "id": "0022",
@@ -240,7 +240,7 @@ window.CONTENT_DATA = [
       "power-query",
       "m-code"
     ],
-    "download_url": "linkedin/0022/Files.zip"
+    "download_url": "content/linkedin/0022/Files.zip"
   },
   {
     "id": "0023",
@@ -251,7 +251,7 @@ window.CONTENT_DATA = [
       "power-query",
       "data-cleaning"
     ],
-    "download_url": "linkedin/0023/Files.zip"
+    "download_url": "content/linkedin/0023/Files.zip"
   },
   {
     "id": "0024",
@@ -262,7 +262,7 @@ window.CONTENT_DATA = [
       "power-query",
       "m-code"
     ],
-    "download_url": "linkedin/0024/Files.zip"
+    "download_url": "content/linkedin/0024/Files.zip"
   },
   {
     "id": "0025",
@@ -274,7 +274,7 @@ window.CONTENT_DATA = [
       "m-code",
       "data-analysis"
     ],
-    "download_url": "linkedin/0025/Files.zip"
+    "download_url": "content/linkedin/0025/Files.zip"
   },
   {
     "id": "0026",
@@ -285,7 +285,7 @@ window.CONTENT_DATA = [
       "power-query",
       "m-code"
     ],
-    "download_url": "linkedin/0026/Files.zip"
+    "download_url": "content/linkedin/0026/Files.zip"
   },
   {
     "id": "0027",
@@ -296,7 +296,7 @@ window.CONTENT_DATA = [
       "power-query",
       "m-code"
     ],
-    "download_url": "linkedin/0027/Files.zip"
+    "download_url": "content/linkedin/0027/Files.zip"
   },
   {
     "id": "0028",
@@ -307,7 +307,7 @@ window.CONTENT_DATA = [
       "power-query",
       "m-code"
     ],
-    "download_url": "linkedin/0028/Files.zip"
+    "download_url": "content/linkedin/0028/Files.zip"
   },
   {
     "id": "0029",
@@ -318,7 +318,7 @@ window.CONTENT_DATA = [
       "power-query",
       "m-code"
     ],
-    "download_url": "linkedin/0029/Files.zip"
+    "download_url": "content/linkedin/0029/Files.zip"
   },
   {
     "id": "20241129",
@@ -329,7 +329,7 @@ window.CONTENT_DATA = [
       "power-query",
       "m-code"
     ],
-    "download_url": "youtube/20241129/Files.zip"
+    "download_url": "content/youtube/20241129/Files.zip"
   },
   {
     "id": "20241206",
@@ -340,7 +340,7 @@ window.CONTENT_DATA = [
       "power-query",
       "m-code"
     ],
-    "download_url": "youtube/20241206/Files.zip"
+    "download_url": "content/youtube/20241206/Files.zip"
   },
   {
     "id": "20241213",
@@ -351,7 +351,7 @@ window.CONTENT_DATA = [
       "excel",
       "formulas"
     ],
-    "download_url": "youtube/20241213/Files.zip"
+    "download_url": "content/youtube/20241213/Files.zip"
   },
   {
     "id": "20241219",
@@ -362,7 +362,7 @@ window.CONTENT_DATA = [
       "excel",
       "dynamic-arrays"
     ],
-    "download_url": "youtube/20241219/Files.zip"
+    "download_url": "content/youtube/20241219/Files.zip"
   },
   {
     "id": "20250103",
@@ -373,7 +373,7 @@ window.CONTENT_DATA = [
       "excel",
       "data-analysis"
     ],
-    "download_url": "youtube/20250103/Files.zip"
+    "download_url": "content/youtube/20250103/Files.zip"
   },
   {
     "id": "20250110",
@@ -384,7 +384,7 @@ window.CONTENT_DATA = [
       "excel",
       "formulas"
     ],
-    "download_url": "youtube/20250110/Files.zip"
+    "download_url": "content/youtube/20250110/Files.zip"
   },
   {
     "id": "20250117",
@@ -395,7 +395,7 @@ window.CONTENT_DATA = [
       "excel",
       "dynamic-arrays"
     ],
-    "download_url": "youtube/20250117/Files.zip"
+    "download_url": "content/youtube/20250117/Files.zip"
   },
   {
     "id": "20250207",
@@ -406,7 +406,7 @@ window.CONTENT_DATA = [
       "power-query",
       "data-cleaning"
     ],
-    "download_url": "youtube/20250207/Files.zip"
+    "download_url": "content/youtube/20250207/Files.zip"
   },
   {
     "id": "20250214",
@@ -417,7 +417,7 @@ window.CONTENT_DATA = [
       "excel",
       "dynamic-arrays"
     ],
-    "download_url": "youtube/20250214/Files.zip"
+    "download_url": "content/youtube/20250214/Files.zip"
   },
   {
     "id": "20250221",
@@ -428,7 +428,7 @@ window.CONTENT_DATA = [
       "power-query",
       "m-code"
     ],
-    "download_url": "youtube/20250221/Files.zip"
+    "download_url": "content/youtube/20250221/Files.zip"
   },
   {
     "id": "20250307",
@@ -439,7 +439,7 @@ window.CONTENT_DATA = [
       "excel",
       "data-analysis"
     ],
-    "download_url": "youtube/20250307/Files.zip"
+    "download_url": "content/youtube/20250307/Files.zip"
   },
   {
     "id": "20250404",
@@ -450,6 +450,6 @@ window.CONTENT_DATA = [
       "power-query",
       "data-cleaning"
     ],
-    "download_url": "youtube/20250404/Files.zip"
+    "download_url": "content/youtube/20250404/Files.zip"
   }
 ];

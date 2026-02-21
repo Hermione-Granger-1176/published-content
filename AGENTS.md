@@ -10,8 +10,8 @@ a filterable website.
 
 ## Content Structure
 
-- LinkedIn content lives in `linkedin/0001`, `linkedin/0002`, ...
-- YouTube content lives in `youtube/YYYYMMDD`
+- LinkedIn content lives in `content/linkedin/0001`, `content/linkedin/0002`, ...
+- YouTube content lives in `content/youtube/YYYYMMDD`
 - Each content folder should contain:
   - `name.txt` (required)
   - `url.txt` (required, `TODO:` allowed until published)
@@ -42,7 +42,7 @@ Content folders are the source of truth.
 
 ## Automation Flow
 
-1. You add/update content folders under `linkedin/` or `youtube/`.
+1. You add/update content folders under `content/linkedin/` or `content/youtube/`.
 2. GitHub Actions runs `.github/workflows/update.yml` on push to `main`.
 3. The workflow runs `python scripts/generate_index.py`.
 4. The workflow commits any changes to `js/data.js` and `README.md`.
