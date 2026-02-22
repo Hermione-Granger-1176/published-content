@@ -371,10 +371,17 @@ body {
     margin-bottom: 1rem;
 }
 
+.card-body {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
 .card-tags {
     display: flex;
     flex-wrap: wrap;
     gap: 0.4rem;
+    margin-top: auto;
     margin-bottom: 1rem;
 }
 

@@ -529,7 +529,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return `
             <article class="session-card" data-key="${key}" tabindex="0" role="button"
                 aria-label="View details for ${escapeHtml(item.title)}">
-                <div>
+                <div class="card-body">
                     <div class="session-id">
                         <span class="platform-badge ${escapeHtml(item.platform)}">${platformLabel(item.platform)}</span>
                     </div>
