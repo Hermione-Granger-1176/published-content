@@ -22,14 +22,14 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - name: Checkout repository
-        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
         with:
           fetch-depth: 1
           persist-credentials: false
 
       - name: Create GitHub App token
         id: app-token
-        uses: actions/create-github-app-token@29824e69f54612133e76f7eaac726eef6c875baf # v2
+        uses: actions/create-github-app-token@f8d387b68d61c58ab83c6c016672934102569859 # v3
         with:
           app-id: ${{ vars.APP_ID }}
           private-key: ${{ secrets.APP_PRIVATE_KEY }}
@@ -42,18 +42,80 @@ jobs:
       - name: Generate content index
         run: python scripts/generate_index.py
 
-      - name: Commit generated files
-        env:
-          APP_TOKEN: ${{ steps.app-token.outputs.token }}
+      - name: Detect changes
+        id: changes
         run: |
-          git config --local user.name "github-actions[bot]"
-          git config --local user.email "github-actions[bot]@users.noreply.github.com"
-          if [ -n "$APP_TOKEN" ]; then
-            git remote set-url origin "https://x-access-token:${APP_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
-          fi
           git add js/data.js README.md
-          git diff --staged --quiet || git commit -m "Auto-update content index [skip ci]"
-          git push
+          if git diff --staged --quiet; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Commit generated files (verified)
+        if: steps.changes.outputs.changed == 'true'
+        uses: actions/github-script@f28e40c7f34bde8b3046d885e986cb6290c5673b # v7
+        with:
+          github-token: ${{ steps.app-token.outputs.token }}
+          script: |
+            const fs = require("fs");
+            const owner = context.repo.owner;
+            const repo = context.repo.repo;
+            const branchName = context.ref.replace("refs/heads/", "");
+
+            const { data: ref } = await github.rest.git.getRef({
+              owner,
+              repo,
+              ref: `heads/${branchName}`,
+            });
+
+            const additions = [];
+            const trackedFiles = ["js/data.js", "README.md"];
+
+            for (const filePath of trackedFiles) {
+              if (fs.existsSync(filePath)) {
+                additions.push({
+                  path: filePath,
+                  contents: fs.readFileSync(filePath).toString("base64"),
+                });
+              }
+            }
+
+            if (additions.length === 0) {
+              core.info("No files to commit");
+              return;
+            }
+
+            const mutation = `
+              mutation ($input: CreateCommitOnBranchInput!) {
+                createCommitOnBranch(input: $input) {
+                  commit { oid url }
+                }
+              }
+            `;
+
+            const result = await github.graphql(mutation, {
+              input: {
+                branch: {
+                  repositoryNameWithOwner: `${owner}/${repo}`,
+                  branchName,
+                },
+                expectedHeadOid: ref.object.sha,
+                message: {
+                  headline: "Auto-update content index [skip ci]",
+                },
+                fileChanges: { additions },
+              },
+            });
+
+            core.info(`Created commit: ${result.createCommitOnBranch.commit.url}`);
+
+      - name: Re-checkout after API commit
+        if: steps.changes.outputs.changed == 'true'
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+        with:
+          ref: main
+          fetch-depth: 1
 
       - name: Setup Pages
         uses: actions/configure-pages@983d7736d9b0ae728b81ab479565c72886d7745b # v5
