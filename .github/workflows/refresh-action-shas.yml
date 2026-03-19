@@ -164,12 +164,22 @@ jobs:
                 .replace(/-/g, "");
               const newBranch = `ci/refresh-action-shas-${date}`;
 
-              await github.rest.git.createRef({
-                owner,
-                repo,
-                ref: `refs/heads/${newBranch}`,
-                sha: ref.object.sha,
-              });
+              let branchSha = ref.object.sha;
+              try {
+                await github.rest.git.createRef({
+                  owner,
+                  repo,
+                  ref: `refs/heads/${newBranch}`,
+                  sha: ref.object.sha,
+                });
+              } catch {
+                const { data: existingRef } = await github.rest.git.getRef({
+                  owner,
+                  repo,
+                  ref: `heads/${newBranch}`,
+                });
+                branchSha = existingRef.object.sha;
+              }
 
               await github.graphql(mutation, {
                 input: {
@@ -177,21 +187,32 @@ jobs:
                     repositoryNameWithOwner: `${owner}/${repo}`,
                     branchName: newBranch,
                   },
-                  expectedHeadOid: ref.object.sha,
+                  expectedHeadOid: branchSha,
                   message: { headline: "ci: refresh action SHAs" },
                   fileChanges: { additions },
                 },
               });
 
-              const { data: pr } = await github.rest.pulls.create({
+              const { data: existing } = await github.rest.pulls.list({
                 owner,
                 repo,
-                head: newBranch,
-                base: defaultBranch,
-                title: "ci: refresh action SHAs",
-                body: "## Summary\n- Pin GitHub Actions to full commit SHAs for reproducible runs\n- Keep workflow behavior unchanged\n",
+                state: "open",
+                head: `${owner}:${newBranch}`,
               });
-              core.info(`Created PR: ${pr.html_url}`);
+
+              if (existing.length === 0) {
+                const { data: pr } = await github.rest.pulls.create({
+                  owner,
+                  repo,
+                  head: newBranch,
+                  base: defaultBranch,
+                  title: "ci: refresh action SHAs",
+                  body: "## Summary\n- Pin GitHub Actions to full commit SHAs for reproducible runs\n- Keep workflow behavior unchanged\n",
+                });
+                core.info(`Created PR: ${pr.html_url}`);
+              } else {
+                core.info(`Updated existing PR: ${existing[0].html_url}`);
+              }
             }
         env:
           DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
